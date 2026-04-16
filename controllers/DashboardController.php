@@ -1,4 +1,7 @@
 <?php
+require_once 'models/Productos.php';
+require_once 'models/Categorias.php';
+require_once 'models/Usuarios.php';
 class DashboardController {
     private $db;
 
@@ -12,11 +15,13 @@ class DashboardController {
     }
 
     public function index() {
-        // Aquí es donde el Dashboard cumple su función: 
-        // Cargar los datos para las "Cards" de la vista.
-        $totalProductos = 0; // Luego aquí llamarás al modelo
-        $totalCategorias = 0;
-        $totalUsuarios = 0;
+        $productoModel = new Producto($this->db);
+        $categoriaModel = new Categoria($this->db);
+        $usuarioModel = new Usuario($this->db);
+        
+        $totalProductos = $productoModel->countAll('producto');
+        $totalCategorias = $categoriaModel->countAll('categoria');
+        $totalUsuarios = $usuarioModel->countAll('usuario');
 
         require_once 'views/dashboard/index.php';
     }

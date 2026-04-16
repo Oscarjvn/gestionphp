@@ -28,4 +28,10 @@ abstract class BaseModel {
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
+    public function countAll($table) {
+        $sql = "SELECT COUNT(*) as total FROM " . $table;
+        $stmt = $this->db->query($sql);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total'];
+    }
 }
